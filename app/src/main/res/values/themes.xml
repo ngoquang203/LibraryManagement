@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.LibraryManagement" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="background">@color/background</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="statusBarBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="colorPrimary">@color/primary</item>
+    </style>
+
+    <style name="Theme.LibraryManagement" parent="Base.Theme.LibraryManagement" />
+</resources>
