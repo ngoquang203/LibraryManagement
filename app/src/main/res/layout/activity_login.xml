@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login"
+    android:background="@color/background"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/body2">
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textColor="@color/text"
+            android:textSize="@dimen/heading2"
+            android:fontFamily="@font/opensans_bold"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
+            android:layout_marginTop="@dimen/body1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_input"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/text"
+                android:ems="10"
+                android:drawableStart="@drawable/account_circle"
+                android:paddingHorizontal="@dimen/body3"
+                android:drawablePadding="@dimen/body3"
+                android:paddingVertical="@dimen/heading3"
+                android:hint="Tài khoản"
+                android:fontFamily="@font/opensans"
+                android:textColorHint="@color/text"
+                android:inputType="text"
+                android:textSize="@dimen/body1"
+                android:layout_marginTop="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            android:layout_marginTop="@dimen/body1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_input"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/text"
+                android:ems="10"
+                android:paddingHorizontal="@dimen/body3"
+                android:drawablePadding="@dimen/body3"
+                android:paddingVertical="@dimen/body1"
+                android:drawableStart="@drawable/lock_open"
+                android:hint="Mật khẩu"
+                android:fontFamily="@font/opensans"
+                android:textColorHint="@color/text"
+                android:inputType="textPassword"
+                android:textSize="@dimen/body1"
+                android:layout_marginTop="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_marginTop="@dimen/body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textSize="@dimen/body1"
+            android:paddingVertical="@dimen/body1"
+            android:fontFamily="@font/opensans_bold"/>
+
+    </LinearLayout>
+
+</LinearLayout>
