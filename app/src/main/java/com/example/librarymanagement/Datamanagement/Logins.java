@@ -34,6 +34,7 @@ public class Logins {
         return list;
     }
 
+
     public String getUser() {
         return User;
     }
