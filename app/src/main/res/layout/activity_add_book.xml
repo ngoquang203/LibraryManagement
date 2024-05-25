@@ -47,6 +47,28 @@
                 android:paddingHorizontal="@dimen/body3"
                 android:drawablePadding="@dimen/body3"
                 android:paddingVertical="@dimen/heading3"
+                android:hint="Mã sách"
+                android:fontFamily="@font/opensans"
+                android:textColorHint="@color/text"
+                android:inputType="text"
+                android:textSize="@dimen/body1"
+                android:layout_marginTop="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
+            android:layout_marginTop="@dimen/body1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_input"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/text"
+                android:ems="10"
+                android:paddingHorizontal="@dimen/body3"
+                android:drawablePadding="@dimen/body3"
+                android:paddingVertical="@dimen/heading3"
                 android:hint="Ảnh bìa"
                 android:fontFamily="@font/opensans"
                 android:textColorHint="@color/text"

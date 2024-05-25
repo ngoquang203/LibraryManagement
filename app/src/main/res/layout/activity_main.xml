@@ -11,6 +11,7 @@
     android:paddingHorizontal="@dimen/body1">
 
     <Button
+        android:id="@+id/main_managementBookCataloging"
         android:layout_marginTop="@dimen/body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         android:paddingVertical="@dimen/body1"
         android:fontFamily="@font/opensans_bold"/>
     <Button
+        android:id="@+id/main_managementBookSummary"
         android:layout_marginTop="@dimen/body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +29,7 @@
         android:paddingVertical="@dimen/body1"
         android:fontFamily="@font/opensans_bold"/>
     <Button
+        android:id="@+id/main_managementBooks"
         android:layout_marginTop="@dimen/body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

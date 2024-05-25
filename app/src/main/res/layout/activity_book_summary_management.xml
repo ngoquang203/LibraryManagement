@@ -13,6 +13,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/body3">
         <ImageButton
+            android:id="@+id/bookSummaryManagement_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/chevron_left"
@@ -37,7 +38,7 @@
             android:layout_marginTop="@dimen/body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thêm sách"
+            android:text="Thêm tóm tắt sách"
             android:textSize="@dimen/body1"
             android:paddingVertical="@dimen/body1"
             android:fontFamily="@font/opensans_bold"/>

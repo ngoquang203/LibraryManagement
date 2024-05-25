@@ -9,45 +9,49 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Logins {
-    String User;
-    String pass;
-    public Logins(){};
+    String Users;
+    String Passwords;
+    public Logins(){
+        Users = "";
+        Passwords = "";
+    };
     public Logins(String user, String pass) {
-        User = user;
-        this.pass = pass;
+        Users = user;
+        this.Passwords = pass;
     }
 
-    public static ArrayList<Logins> getuserlist() throws SQLException {
+    public static Logins getuserlist(String user,String passWords) throws SQLException {
         Connection connection = SQLmanagement.connectionSQLSever();
-        ArrayList<Logins> list = new ArrayList<>();
+        Logins logins = new Logins();
         Statement statement = connection.createStatement();// Tạo đối tượng Statement.
-        String sql = "select * from Logins";
+        String sql = "select * from Logins where Users = '" + user + "' and Passwords = '" + passWords +"'";
         // Thực thi câu lệnh SQL trả về đối tượng ResultSet. // Mọi kết quả trả về sẽ được lưu trong ResultSet
         ResultSet rs = statement.executeQuery(sql);
-        while (rs.next()) {
-            list.add(new Logins(
-                    rs.getString("ID").trim(),
-                    rs.getString("Passwords").trim()));// Đọc dữ liệu từ ResultSet
+        if(rs.next()){
+            logins = new Logins(
+                    rs.getString(1).trim(),
+                    rs.getString(2).trim());// Đọc dữ liệu từ ResultSet)
         }
+
         statement.close();
         connection.close();// Đóng kết nối
-        return list;
+        return logins;
     }
 
 
     public String getUser() {
-        return User;
+        return Users;
     }
 
     public void setUser(String user) {
-        User = user;
+        Users = user;
     }
 
     public String getPass() {
-        return pass;
+        return Passwords;
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.Passwords = pass;
     }
 }

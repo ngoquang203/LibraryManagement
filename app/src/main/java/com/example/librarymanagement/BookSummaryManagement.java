@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class BookSummaryManagement extends AppCompatActivity {
     private ArrayList<BookSummarys> arrayList;
     private TextView noData;
     private Button buttonAddSummary;
+    private ImageButton backPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,13 @@ public class BookSummaryManagement extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookSummaryManagement.this, AddBookSummary.class);
+                startActivity(intent);
+            }
+        });
+        backPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BookSummaryManagement.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,6 +65,7 @@ public class BookSummaryManagement extends AppCompatActivity {
         listView = findViewById(R.id.bookSummaryManagement_listView);
         noData = findViewById(R.id.bookSummaryManagement_noData);
         buttonAddSummary = findViewById(R.id.bookSummaryManagement_buttonAddSummary);
+        backPage = findViewById(R.id.bookSummaryManagement_back);
         try {
             arrayList = BookSummarys.getuserlist();
         } catch (SQLException e) {
