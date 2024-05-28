@@ -28,6 +28,14 @@
             android:fontFamily="@font/opensans_bold"
             android:gravity="start"/>
     </LinearLayout>
+    <android.widget.SearchView
+        android:id="@+id/bookSummaryManagement_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:queryHint="Tìm kiếm"
+        android:layout_marginHorizontal="@dimen/body1"
+        android:iconifiedByDefault="false"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,6 +67,5 @@
             android:fontFamily="@font/opensans"
             android:textSize="@dimen/body1"
             android:visibility="gone"/>
-
     </LinearLayout>
 </LinearLayout>

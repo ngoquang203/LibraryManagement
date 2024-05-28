@@ -14,19 +14,21 @@ import java.util.ArrayList;
 
 public class Books {
     private String IdBooks;
-    private byte[] CoverImage;
+    private byte[] coverImage;
     private String IdBookCataloging;
     private String IdBookSummary;
     private int NumberPage;
+    private long Price;
     private int NumberBook;
     private String Status;
 
-    public Books(String idBooks, byte[] coverImage, String idBookCataloging, String idBookSummary, int numberPage, int numberBook, String status) {
+    public Books(String idBooks, byte[] coverImage, String idBookCataloging, String idBookSummary, int numberPage, long price, int numberBook, String status) {
         IdBooks = idBooks;
-        CoverImage = coverImage;
+        this.coverImage = coverImage;
         IdBookCataloging = idBookCataloging;
         IdBookSummary = idBookSummary;
         NumberPage = numberPage;
+        Price = price;
         NumberBook = numberBook;
         Status = status;
     }
@@ -41,10 +43,11 @@ public class Books {
         while (rs.next()) {
             list.add(new Books(
                     rs.getString("IdBooks").trim(), // Lấy dữ liệu ỏ cột IdBookSummary
-                    rs.getBytes("CoverImage"),
+                    rs.getBytes("CoverImages"),
                     rs.getString("IdBookCataloging").trim(), // Lấy dữ liệu ỏ cột MainContent
                     rs.getString("IdBookSummary"), // Lấy dữ liệu ỏ cột
-                    rs.getInt("NumberPage"), // Lấy dữ liệu ỏ cột
+                    rs.getInt("NumberPage"),// Lấy dữ liệu ỏ cột
+                    rs.getLong("Price"),// Lấy dữ liệu ỏ cột
                     rs.getInt("NumberBook"), // Lấy dữ liệu ỏ cột
                     rs.getString("Status")));// Đọc dữ liệu từ ResultSet
         }
@@ -53,22 +56,62 @@ public class Books {
         return list; // Trả về list
     }
 
-    public static void insertList(String idBooks,byte[] coverImage,String idBookCataloging,String idBookSummary,int numberPage,int numberBook,String status) throws SQLException{ // Hàm thêm 1 tóm tắt sách
+    public static void deleteList(String idBooks) throws SQLException{ // Hàm xóa dữ liệu hàng trong bảng BookSumary
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
-        String sql = "insert into Books(IdBooks,CoverImage,IdBookCataloging,IdBookSummary,NumberPage,NumberBook,Status) values (?,?,?,?,?,?,?)";
+        Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
+        String sql = "delete from Books where IdBooks =  '" + idBooks + "'"; // Câu lênh SQL Server xóa hàng có Cột IdBookSummary trung với dữ liệu truyền vào
+        statement.execute(sql); // Thực thi câu lệnh
+        statement.close(); // Đóng đối tương Statament
+        connection.close(); // Đóng kết nối
+    }
+
+    public static void insertList(String idBooks, byte[] coverImage, String idBookCataloging, String idBookSummary, int numberPage, long price, int numberBook, String status) throws SQLException{
+        Connection connection = SQLmanagement.connectionSQLSever();
+        String sql = "insert into Books(IdBooks,CoverImages,IdBookCataloging,IdBookSummary,NumberPage,Price,NumberBook,Status) values  (?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,idBooks);
         preparedStatement.setBytes(2,coverImage);
         preparedStatement.setString(3,idBookCataloging);
         preparedStatement.setString(4,idBookSummary);
         preparedStatement.setInt(5,numberPage);
-        preparedStatement.setInt(6,numberBook);
-        preparedStatement.setString(7,status);
+        preparedStatement.setLong(6,price);
+        preparedStatement.setInt(7,numberBook);
+        preparedStatement.setString(8,status);
         preparedStatement.execute();
         preparedStatement.close();
-        connection.close(); // Đóng kết nối
+        connection.close();
+    }
+    public static void updateList(String idBooks, byte[] coverImage, String idBookCataloging, String idBookSummary, int numberPage, long price, int numberBook, String status) throws SQLException{
+        Connection connection = SQLmanagement.connectionSQLSever();
+        String sql = "update Books set CoverImages = ?, IdBookCataloging = ?, IdBookSummary = ?, NumberPage = ?, Price = ?, NumberBook = ?, Status = ? where IdBooks = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setBytes(1,coverImage);
+        preparedStatement.setString(2,idBookCataloging);
+        preparedStatement.setString(3,idBookSummary);
+        preparedStatement.setInt(4,numberPage);
+        preparedStatement.setLong(5,price);
+        preparedStatement.setInt(6,numberBook);
+        preparedStatement.setString(7,status);
+        preparedStatement.setString(8,idBooks);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+    }
+    public byte[] getCoverImage() {
+        return coverImage;
     }
 
+    public void setCoverImage(byte[] coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public long getPrice() {
+        return Price;
+    }
+
+    public void setPrice(long price) {
+        Price = price;
+    }
 
     public String getIdBooks() {
         return IdBooks;
@@ -78,32 +121,7 @@ public class Books {
         IdBooks = idBooks;
     }
 
-    public static void deleteList(String idBookCataloging) throws SQLException{ // Hàm xóa dữ liệu hàng trong bảng BookSumary
-        Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
-        Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
-        String sql = "delete from BookCatalogings where IdBookCataloging = '" + idBookCataloging + "'"; // Câu lênh SQL Server xóa hàng có Cột IdBookSummary trung với dữ liệu truyền vào
-        statement.execute(sql); // Thực thi câu lệnh
-        statement.close(); // Đóng đối tương Statament
-        connection.close(); // Đóng kết nối
-    }
 
-    public static void insertList(String idBookCataloging,String heading,String author,String isbn,String publishing,String genre) throws SQLException{ // Hàm thêm 1 tóm tắt sách
-        Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
-        Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
-        String sql = "insert into BookCatalogings(IdBookCataloging,Heading,Author,ISBN,Publishing,Genre) values ('" + idBookCataloging +
-                "','" + heading + "','" + author + "','" + isbn + "','" +  publishing + "','" + genre + "')"; // Câu lênh SQL Server thêm hàng mới trong bảng BookSummary
-        statement.execute(sql); // Thực thi câu lệnh
-        statement.close(); // Đóng đối tượng Statement
-        connection.close(); // Đóng kết nối
-    }
-
-    public byte[] getCoverImage() {
-        return CoverImage;
-    }
-
-    public void setCoverImage(byte[] coverImage) {
-        CoverImage = coverImage;
-    }
 
     public String getIdBookSummary() {
         return IdBookSummary;

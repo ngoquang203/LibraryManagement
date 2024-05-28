@@ -16,6 +16,11 @@ public class BookCatalogings {
     private String Publishing;
     private String Genre;
 
+    public  BookCatalogings(){};
+    public BookCatalogings(String idBookCataloging){
+        this.IdBookCataloging = idBookCataloging;
+    }
+
     public BookCatalogings(String idBookCataloging, String heading, String author, String ISBN, String publishing, String genre) {
         IdBookCataloging = idBookCataloging;
         Heading = heading;
@@ -45,6 +50,26 @@ public class BookCatalogings {
         connection.close();// Đóng kết nối
         return list; // Trả về list
     }
+
+    public static BookCatalogings getuserlist(String idBookCataloging) throws SQLException{
+        Connection connection = SQLmanagement.connectionSQLSever();
+        BookCatalogings bookCatalogings = new BookCatalogings();
+        Statement statement = connection.createStatement();
+        String sql = "select * from BookCatalogings where IdBookCataloging = '" + idBookCataloging + "'";
+        ResultSet rs = statement.executeQuery(sql);
+        if(rs.next()){
+            bookCatalogings = new BookCatalogings(
+                    rs.getString("IdBookCataloging").trim(), // Lấy dữ liệu ỏ cột IdBookSummary
+                    rs.getString("Heading").trim(), // Lấy dữ liệu ỏ cột MainContent
+                    rs.getString("Author"), // Lấy dữ liệu ỏ cột
+                    rs.getString("ISBN"), // Lấy dữ liệu ỏ cột
+                    rs.getString("Publishing"), // Lấy dữ liệu ỏ cột
+                    rs.getString("Genre")
+            );
+        }
+        return bookCatalogings;
+    }
+
     public static void deleteList(String idBookCataloging) throws SQLException{ // Hàm xóa dữ liệu hàng trong bảng BookSumary
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
         Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
@@ -58,7 +83,17 @@ public class BookCatalogings {
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
         Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
         String sql = "insert into BookCatalogings(IdBookCataloging,Heading,Author,ISBN,Publishing,Genre) values ('" + idBookCataloging +
-                "','" + heading + "','" + author + "','" + isbn + "','" +  publishing + "','" + genre + "')"; // Câu lênh SQL Server thêm hàng mới trong bảng BookSummary
+                "',N'" + heading + "',N'" + author + "',N'" + isbn + "',N'" +  publishing + "',N'" + genre + "')"; // Câu lênh SQL Server thêm hàng mới trong bảng BookSummary
+        statement.execute(sql); // Thực thi câu lệnh
+        statement.close(); // Đóng đối tượng Statement
+        connection.close(); // Đóng kết nối
+    }
+
+    public static void updateList(String idBookCataloging,String heading,String author,String isbn,String publishing,String genre) throws SQLException{ // Hàm thêm 1 tóm tắt sách
+        Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
+        Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
+        String sql = "update BookCatalogings set Heading = '" + heading + "',Author = '" + author + "',ISBN = '" + isbn + "',Publishing = '" +
+            publishing +"',Genre = '" + genre + "' where IdBookCataloging = '" + idBookCataloging + "'"; // Câu lênh SQL Server thêm hàng mới trong bảng BookSummary
         statement.execute(sql); // Thực thi câu lệnh
         statement.close(); // Đóng đối tượng Statement
         connection.close(); // Đóng kết nối

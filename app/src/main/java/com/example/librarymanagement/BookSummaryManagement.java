@@ -9,7 +9,9 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.librarymanagement.AdapterManagement.AdapterBookSummary;
 import com.example.librarymanagement.Datamanagement.BookSummarys;
@@ -24,6 +26,8 @@ public class BookSummaryManagement extends AppCompatActivity {
     private TextView noData;
     private Button buttonAddSummary;
     private ImageButton backPage;
+    private AdapterBookSummary adapterBookSummary;
+    private android.widget.SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class BookSummaryManagement extends AppCompatActivity {
         Init();
         setNoData();
         changePageAddBookSummary();
+        setClickSearchView();
     }
 
     private void changePageAddBookSummary() {
@@ -60,6 +65,35 @@ public class BookSummaryManagement extends AppCompatActivity {
         }
     }
 
+    private void setClickSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+    }
+    private void filterList(String newText) {
+        ArrayList<BookSummarys> summarysArrayList = new ArrayList<>();
+        for(BookSummarys bookSummarys : arrayList){
+            if(bookSummarys.getIdBookSummary().toString().toLowerCase().contains(newText.toString().toLowerCase())){
+                summarysArrayList.add(bookSummarys);
+            }
+        }
+        if(summarysArrayList.isEmpty()){
+            listView.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        }else{
+            adapterBookSummary.setFilterList(summarysArrayList);
+            listView.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
+        }
+    }
 
     private void Init() {
         listView = findViewById(R.id.bookSummaryManagement_listView);
@@ -71,7 +105,9 @@ public class BookSummaryManagement extends AppCompatActivity {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        AdapterBookSummary adapterBookSummary = new AdapterBookSummary(this,arrayList);
+        adapterBookSummary = new AdapterBookSummary(this,arrayList);
         listView.setAdapter(adapterBookSummary);
+        searchView = findViewById(R.id.bookSummaryManagement_searchView);
+        searchView.clearFocus();
     }
 }
