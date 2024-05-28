@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Logins {
     String Users;
     String Passwords;
-
     // hàm constructor
     public Logins(){
         Users = "";
@@ -21,7 +20,6 @@ public class Logins {
         Users = user;
         this.Passwords = pass;
     }
-
     // hàm lấy tài khoản
     public static Logins getuserlist(String user,String passWords) throws SQLException {
         Connection connection = SQLmanagement.connectionSQLSever();
