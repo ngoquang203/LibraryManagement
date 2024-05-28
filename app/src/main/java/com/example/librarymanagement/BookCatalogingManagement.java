@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BookCatalogingManagement extends AppCompatActivity {
+    // tạo các biến dữ liệu
     private ListView listView;
     private ArrayList<BookCatalogings> arrayList;
     private TextView noData;
@@ -33,13 +34,13 @@ public class BookCatalogingManagement extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_cataloging_management);
-
-        Init();
-        changePageAddBookCataloging();
+        Init(); // hàm khởi tạo
+        changePageAddBookCataloging(); // hàm chuyển màn hình qua thêm biên mục
         setNoData();
         setClickSearchView();
     }
 
+    // hàm chuyển màn hình qua thêm biên mục
     private void changePageAddBookCataloging() {
         buttonAddCataloging.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // set sự kiện cho nút back
         backPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +59,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
         });
     }
 
+    // hàm set hiển thị khi size của listview = 0
     private void setNoData() {
         if(arrayList.size() == 0){
             listView.setVisibility(View.GONE);
@@ -67,6 +70,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
         }
     }
 
+    // hàm xử lí khi click tìm kiếm
     private void setClickSearchView() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -80,6 +84,8 @@ public class BookCatalogingManagement extends AppCompatActivity {
             }
         });
     }
+
+    // hàm để tìm các biên mục có cùng kí tự với giá trị tìm kiếm
     private void filterList(String newText) {
         ArrayList<BookCatalogings> catalogingsArrayList = new ArrayList<>();
         for(BookCatalogings bookCatalogings : arrayList){
@@ -87,6 +93,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
                 catalogingsArrayList.add(bookCatalogings);
             }
         }
+        // xử lí sự kiện khi hiển thị danh sách tìm kiếm
         if(catalogingsArrayList.isEmpty()){
             listView.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
@@ -99,6 +106,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
 
 
     private void Init() {
+        // ánh xạ view
         listView = findViewById(R.id.bookCatalogingManagement_listView);
         noData = findViewById(R.id.bookCatalogingManagement_noData);
         buttonAddCataloging = findViewById(R.id.bookCatalogingManagement_buttonAddCataloging);
@@ -108,6 +116,7 @@ public class BookCatalogingManagement extends AppCompatActivity {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        // set adapter cho listview
         adapterBookCataloging = new AdapterBookCataloging(this,arrayList);
         listView.setAdapter(adapterBookCataloging);
         searchView = findViewById(R.id.bookCatalogingManagement_searchView);

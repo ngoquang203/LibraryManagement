@@ -13,13 +13,13 @@ public class SQLmanagement {
         try {
             try {
                 StrictMode.ThreadPolicy policy =
-                        new StrictMode.ThreadPolicy.Builder().permitAll().build(); // lay tat ca cac quyen
-                StrictMode.setThreadPolicy(policy); // thiet lap chinh sac ket noi bao gom tat ca cac quyen
+                        new StrictMode.ThreadPolicy.Builder().permitAll().build(); // lấy tất cả các quyền
+                StrictMode.setThreadPolicy(policy); // thiết lập chính xác kết nối các quyền
                 Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
                 connection = DriverManager.getConnection(sql);
-                Log.i("THONG BAO:","Ket noi thanh cong");
+                Log.i("THONG BAO:","Ket noi thanh cong"); // thông báo kết nối thành công
             } catch (Exception e) {
-                Log.e("THONGBAO","LOSS");
+                Log.e("THONGBAO","LOSS"); // thông báo kết nối không thành công
                 throw new RuntimeException(e);
             }
         }catch (Exception e){

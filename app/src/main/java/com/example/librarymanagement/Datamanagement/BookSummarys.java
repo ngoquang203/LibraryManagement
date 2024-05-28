@@ -13,6 +13,8 @@ public class BookSummarys {
     private String MainContent;
     private String Meaning;
     private String CommunicationGoals;
+
+    // hàm constructor
     public BookSummarys(){};
     public BookSummarys(String idBookSummary){
         this.IdBookSummary = idBookSummary;
@@ -24,7 +26,7 @@ public class BookSummarys {
         Meaning = meaning;
         CommunicationGoals = communicationGoals;
     }
-
+    // hàm in ra danh sách tóm tắt sách
     public static ArrayList<BookSummarys> getuserlist() throws SQLException { // Hàm lấy dữ liệu
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL server
         ArrayList<BookSummarys> list = new ArrayList<>(); // Tạo list để lưu dữ liệu
@@ -43,12 +45,13 @@ public class BookSummarys {
         connection.close();// Đóng kết nối
         return list; // Trả về list
     }
+    // hàm in ra tóm tắt sách thông qua idBookSummary
     public static BookSummarys getuserlist(String idBookSummary) throws SQLException{
-        Connection connection = SQLmanagement.connectionSQLSever();
-        BookSummarys bookSummarys = new BookSummarys();
-        Statement statement = connection.createStatement();
-        String sql = "select * from BookSummarys where IdBookSummary = '" + idBookSummary + "'";
-        ResultSet rs = statement.executeQuery(sql);
+        Connection connection = SQLmanagement.connectionSQLSever(); // kết nối SQL
+        BookSummarys bookSummarys = new BookSummarys(); // tạo đối tượng
+        Statement statement = connection.createStatement(); // tạo statement
+        String sql = "select * from BookSummarys where IdBookSummary = '" + idBookSummary + "'"; // tạo câu lệnh query
+        ResultSet rs = statement.executeQuery(sql); // thực thi câu lênh SQL trả về đối tượng réultset
         if(rs.next()){
             bookSummarys = new BookSummarys(
                     rs.getString("IdBookSummary").trim(), // Lấy dữ liệu ỏ cột IdBookSummary
@@ -59,6 +62,7 @@ public class BookSummarys {
         }
         return bookSummarys;
     }
+    // hàm xóa tóm tắt sách thông qua idBookSummary
     public static void deleteList(String idBookSummary) throws SQLException{ // Hàm xóa dữ liệu hàng trong bảng BookSumary
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
         Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
@@ -67,7 +71,7 @@ public class BookSummarys {
         statement.close(); // Đóng đối tương Statament
         connection.close(); // Đóng kết nối
     }
-
+    // hàm ínsert tóm tắt sách
     public static void insertList(String idBookSummary,String mainContent,String meaning,String communicationGoals) throws SQLException{ // Hàm thêm 1 tóm tắt sách
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
         Statement statement = connection.createStatement(); // Tạo đối tượng Statement.
@@ -78,6 +82,7 @@ public class BookSummarys {
         connection.close(); // Đóng kết nối
     }
 
+    // hàm update tóm tắt sách
     public static void updateList(String idBookSummary,String mainContent,String meaning,String communicationGoals) throws SQLException{ // Hàm thêm 1 tóm tắt sách
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL Server
         Statement statement = connection.createStatement(); // Tạo đối tượng Statement.

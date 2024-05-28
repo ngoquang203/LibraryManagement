@@ -16,6 +16,8 @@ public class BookCatalogings {
     private String Publishing;
     private String Genre;
 
+
+    // tạo constructor
     public  BookCatalogings(){};
     public BookCatalogings(String idBookCataloging){
         this.IdBookCataloging = idBookCataloging;
@@ -29,7 +31,7 @@ public class BookCatalogings {
         Publishing = publishing;
         Genre = genre;
     }
-
+    // hàm get danh sách biên mục sách trong SQL
     public static ArrayList<BookCatalogings> getuserlist() throws SQLException { // Hàm lấy dữ liệu
         Connection connection = SQLmanagement.connectionSQLSever(); // Kết nối với SQL server
         ArrayList<BookCatalogings> list = new ArrayList<>(); // Tạo list để lưu dữ liệu
@@ -52,11 +54,11 @@ public class BookCatalogings {
     }
 
     public static BookCatalogings getuserlist(String idBookCataloging) throws SQLException{
-        Connection connection = SQLmanagement.connectionSQLSever();
-        BookCatalogings bookCatalogings = new BookCatalogings();
-        Statement statement = connection.createStatement();
-        String sql = "select * from BookCatalogings where IdBookCataloging = '" + idBookCataloging + "'";
-        ResultSet rs = statement.executeQuery(sql);
+        Connection connection = SQLmanagement.connectionSQLSever(); // kết nối sql
+        BookCatalogings bookCatalogings = new BookCatalogings(); // tạo đối tượng
+        Statement statement = connection.createStatement(); // tạo statement
+        String sql = "select * from BookCatalogings where IdBookCataloging = '" + idBookCataloging + "'"; // câu lệnh query
+        ResultSet rs = statement.executeQuery(sql); // thực thi câu lệnh SQL trả về đối tượng Result
         if(rs.next()){
             bookCatalogings = new BookCatalogings(
                     rs.getString("IdBookCataloging").trim(), // Lấy dữ liệu ỏ cột IdBookSummary

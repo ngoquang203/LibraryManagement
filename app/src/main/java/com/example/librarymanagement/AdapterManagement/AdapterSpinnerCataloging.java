@@ -33,16 +33,17 @@ public class AdapterSpinnerCataloging extends ArrayAdapter<BookCatalogings> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selected,parent,false);
-
+        // ánh xạ textview trong layout selected
         TextView title = convertView.findViewById(R.id.itemSelected_text);
 
-        BookCatalogings bookCatalogings = this.getItem(position);
+        BookCatalogings bookCatalogings = this.getItem(position); // tạo đối tượng và set giá trị cho đối tượng
         if(bookCatalogings != null){
+            // trường hợp khi nhấn thêm biên mục
             if(bookCatalogings.getIdBookCataloging().equals("Thêm biên mục")){
-                Intent intent = new Intent(getContext(), AddBookCataloging.class);
+                Intent intent = new Intent(getContext(), AddBookCataloging.class); // chuyển màn hình
                 getContext().startActivity(intent);
             }else{
-                title.setText(bookCatalogings.getIdBookCataloging());
+                title.setText(bookCatalogings.getIdBookCataloging()); // set giá trị cho textview
             }
         }
         return convertView;
@@ -52,11 +53,12 @@ public class AdapterSpinnerCataloging extends ArrayAdapter<BookCatalogings> {
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spinner,parent,false);
 
+        // ánh xạ
         TextView title = convertView.findViewById(R.id.itemSpinner_title);
 
-        BookCatalogings bookCatalogings = this.getItem(position);
+        BookCatalogings bookCatalogings = this.getItem(position); // tạo đối tượng và set giá trị
         if(bookCatalogings != null){
-            title.setText(bookCatalogings.getIdBookCataloging());
+            title.setText(bookCatalogings.getIdBookCataloging()); // set giá trị cho textview
         }
         return convertView;
     }

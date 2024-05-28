@@ -52,18 +52,22 @@ public class AdapterBookCataloging extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.item_book_summary,null);
+        // ánh xạ
         TextView textView = convertView.findViewById(R.id.itemBookSummary_textView);
         ImageButton imageButton = convertView.findViewById(R.id.itemBookSummary_imageButton);
 
-        BookCatalogings bookCatalogings = arrayList.get(position);
-        textView.setText(bookCatalogings.getIdBookCataloging());
+        BookCatalogings bookCatalogings = arrayList.get(position); // tạo đối tượng
+        textView.setText(bookCatalogings.getIdBookCataloging()); // set giá trị cho textview
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // tạo dialog và set layout
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_supcataloging);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+                // ánh xạ
                 ImageButton back = dialog.findViewById(R.id.dialogSupCataloging_back);
                 TextView IdBookCataloging = dialog.findViewById(R.id.dialogSupCataloging_idBookCataloging);
                 TextView Heading = dialog.findViewById(R.id.dialogSupCataloging_heading);
@@ -72,6 +76,7 @@ public class AdapterBookCataloging extends BaseAdapter {
                 TextView Publishing = dialog.findViewById(R.id.dialogSupCataloging_publishing);
                 TextView Genre = dialog.findViewById(R.id.dialogSupCataloging_genre);
 
+                // set các giá trị cho các thành phần
                 IdBookCataloging.setText(bookCatalogings.getIdBookCataloging());
                 Heading.setText(bookCatalogings.getHeading());
                 Author.setText(bookCatalogings.getAuthor());
